@@ -6,7 +6,11 @@ public class PlantsGeneration : MonoBehaviour
 {
     public GameObject[] m_objects = new GameObject[6];
     public Vector3 scale;
+    public bool plantsGeneration = true;
+
     private TangoPointCloud m_pointCloud;
+
+    Vector2 position;
 
     int row;
     int col;
@@ -21,12 +25,10 @@ public class PlantsGeneration : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < row; i++)
+        if (plantsGeneration)
         {
-            for (int j = 0; j < col; j++)
-            {
-                PlaceObject(new Vector2(i, j));
-            }
+            position = new Vector2(Random.Range(0, Screen.width), Random.Range(0, Screen.height));
+            PlaceObject(position);
         }
     }
 
@@ -37,32 +39,28 @@ public class PlantsGeneration : MonoBehaviour
         Camera cam = Camera.main;
         Vector3 planeCenter;
         Plane plane;
-        if (!m_pointCloud.FindPlane(cam, position, out planeCenter, out plane))
+        if (m_pointCloud.FindPlane(cam, position, out planeCenter, out plane))
         {
-            Debug.Log("cannot find plane.");
-            return;
-        }
+            Vector3 up = plane.normal;
+            Vector3 right = Vector3.Cross(plane.normal, cam.transform.forward).normalized;
+            Vector3 forward = Vector3.Cross(right, plane.normal).normalized;
 
-        Vector3 up = plane.normal;
-        Vector3 right = Vector3.Cross(plane.normal, cam.transform.forward).normalized;
-        Vector3 forward = Vector3.Cross(right, plane.normal).normalized;
-
-        // Place object on the surface, and make it always face the camera.
-        if (Vector3.Angle(plane.normal, Vector3.up) < 5.0f)
-        {
-            instantiateObject(m_objects.Length, planeCenter, forward, up);
-        }
-        else if (Vector3.Angle(plane.normal, Vector3.up) < 10.0f)
-        {
-            instantiateObject(m_objects.Length - 1, planeCenter, forward, up);
-        }
-        else if (Vector3.Angle(plane.normal, Vector3.up) < 50.0f)
-        {
-            instantiateObject(5, planeCenter, forward, up);
-        }
-        else
-        {
-            Debug.Log("surface is too steep for object to stand on.");
+            // Place object on the surface, and make it always face the camera.
+            if (Vector3.Angle(plane.normal, Vector3.up) < 10.0f)
+            {
+                if (!Physics.CheckSphere(position, 2000))
+                {
+                    instantiateObject(m_objects.Length, planeCenter, forward, up);
+                }
+            }
+            else if (Vector3.Angle(plane.normal, Vector3.up) < 50.0f)
+            {
+                instantiateObject(6, planeCenter, forward, up);
+            }
+            else
+            {
+                Debug.Log("surface is too steep for object to stand on.");
+            }
         }
     }
 
@@ -71,5 +69,14 @@ public class PlantsGeneration : MonoBehaviour
         var instantiatedObject = Instantiate(m_objects[Random.Range(0, range)], coords, Quaternion.LookRotation(forward, up)) as GameObject;
         instantiatedObject.transform.localScale = scale;
         ARMarker markerScript = instantiatedObject.GetComponent<ARMarker>();
+    }
+
+    public void OnGUI()
+    {
+        // Toggle Plants Generation
+        if (GUI.Button(new Rect(10, Screen.height - 110, 600, 100), "<size=40>Toggle Plants Seeding</size>"))
+        {
+            plantsGeneration = !plantsGeneration;
+        }
     }
 }

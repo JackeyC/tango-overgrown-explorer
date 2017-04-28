@@ -12,7 +12,7 @@ public class WaypointsFollower : MonoBehaviour
 
     public GameObject targetToFollow;
 
-    public bool displayWaypoints;
+    public bool displayWaypoints = true;
     public GameObject waypointPrefab;
 
     List<Vector3> waypoints = new List<Vector3>();
@@ -84,36 +84,29 @@ public class WaypointsFollower : MonoBehaviour
             {
                 waypoints.Remove(waypoints[0]);
             }
-
-            // Display waypoints
-            if (displayWaypoints)
-            {
-                foreach (Vector3 waypoint in waypoints)
-                {
-                    GameObject[] existingWaypoints = GameObject.FindGameObjectsWithTag("Waypoints");
-                    foreach (GameObject i in existingWaypoints)
-                    {
-                        //if (waypoint != i.transform);
-                    }
-                    Instantiate(waypointPrefab, waypoint, Quaternion.identity);
-                }
-            }
         }
     }
 
     void addWaypoints()
     {
         waypoints.Add(targetToFollow.transform.position);
+
+        // Display waypoints
+        if (displayWaypoints)
+        {
+            Instantiate(waypointPrefab, targetToFollow.transform.position, Quaternion.identity);
+        }
     }
 
     public void OnGUI()
     {
         // Add waypoint when button touched
-        if (GUI.Button(new Rect(Screen.width - 310, Screen.height - 310, 300, 300), "<size=40>Set Waypoint</size>"))
+        if (GUI.Button(new Rect(Screen.width - 310, Screen.height - 210, 300, 200), "<size=40>Set Waypoint</size>"))
         {
             addWaypoints();
         }
-        if (GUI.Toggle(new Rect(Screen.width - 310, 10, 300, 100), displayWaypoints, "<size=40>Toggle Waypoint</size>"))
+
+        if (GUI.Button(new Rect(Screen.width - 410, 10, 400, 100), "<size=40>Toggle Waypoint</size>"))
         {
             displayWaypoints = !displayWaypoints;
         }

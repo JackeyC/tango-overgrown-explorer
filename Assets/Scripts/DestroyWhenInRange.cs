@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DestroyWhenInRange : MonoBehaviour {
 
@@ -9,7 +7,7 @@ public class DestroyWhenInRange : MonoBehaviour {
 
     void Update () {
         GameObject targetObject = GameObject.Find(target);
-        if ((targetObject.transform.position - transform.position).magnitude < range)
+        if ((targetObject.transform.position + new Vector3(0, 0.2f, 0) - transform.position).magnitude < range)
         {
             Destroy(gameObject);
         }

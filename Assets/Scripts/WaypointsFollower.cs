@@ -94,7 +94,7 @@ public class WaypointsFollower : MonoBehaviour
         // Display waypoints
         if (displayWaypoints)
         {
-            Instantiate(waypointPrefab, targetToFollow.transform.position, Quaternion.identity);
+            Instantiate(waypointPrefab, targetToFollow.transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
         }
     }
 

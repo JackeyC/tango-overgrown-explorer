@@ -27,7 +27,7 @@ public class PlantsGeneration : MonoBehaviour
     {
         if (plantsGeneration)
         {
-            position = new Vector2(Random.Range(0, Screen.width), Random.Range(0, Screen.height));
+            position = new Vector2(RandomFromDistribution.RandomRangeNormalDistribution(0, Screen.width, RandomFromDistribution.ConfidenceLevel_e._999), RandomFromDistribution.RandomRangeNormalDistribution(0, Screen.height, RandomFromDistribution.ConfidenceLevel_e._999));
             PlaceObject(position);
         }
     }
@@ -48,7 +48,7 @@ public class PlantsGeneration : MonoBehaviour
             // Place object on the surface, and make it always face the camera.
             if (Vector3.Angle(plane.normal, Vector3.up) < 10.0f)
             {
-                if (!Physics.CheckSphere(position, 2000))
+                if (!Physics.CheckSphere(position, 100))
                 {
                     instantiateObject(m_objects.Length, planeCenter, forward, up);
                 }
@@ -68,7 +68,6 @@ public class PlantsGeneration : MonoBehaviour
     {
         var instantiatedObject = Instantiate(m_objects[Random.Range(0, range)], coords, Quaternion.LookRotation(forward, up)) as GameObject;
         instantiatedObject.transform.localScale = scale;
-        ARMarker markerScript = instantiatedObject.GetComponent<ARMarker>();
     }
 
     public void OnGUI()
@@ -77,6 +76,16 @@ public class PlantsGeneration : MonoBehaviour
         if (GUI.Button(new Rect(10, Screen.height - 110, 600, 100), "<size=40>Toggle Plants Seeding</size>"))
         {
             plantsGeneration = !plantsGeneration;
+        }
+
+        // Destroy Plants
+        if (GUI.Button(new Rect(10, Screen.height - 220, 400, 100), "<size=40>Destroy Plants</size>"))
+        {
+            var plantsToDestroy = GameObject.FindGameObjectsWithTag("Plants");
+            foreach (var plant in plantsToDestroy)
+            {
+                Destroy(plant);
+            }
         }
     }
 }

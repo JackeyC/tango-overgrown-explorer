@@ -27,7 +27,7 @@ Shader "Tango/PointCloud (Occlusion)" {
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.size = 30;
+                o.size = 10;
                 return o;
             }
            

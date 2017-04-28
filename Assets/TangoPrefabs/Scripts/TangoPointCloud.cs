@@ -570,22 +570,4 @@ public class TangoPointCloud : MonoBehaviour, ITangoPointCloud
             }
         }
     }
-
-    // Custom Code
-    public Vector3 FindPoints(int i, int pointCounts)
-    {
-        if (m_pointsCount == 0)
-        {
-            // No points to check, maybe not connected to the service yet
-            return Vector3.zero;
-        }
-        else
-        {
-            Matrix4x4 unityWorldOffsetTDepthCamera;
-            //m_points[i] = unityWorldOffsetTDepthCamera.MultiplyPoint3x4(pointCloud[i]);
-            pointCounts = m_pointsCount;
-            Vector3 pointCoords = m_points[i];
-            return pointCoords;
-        }
-    }
 }

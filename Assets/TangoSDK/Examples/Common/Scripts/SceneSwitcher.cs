@@ -41,14 +41,17 @@ public class SceneSwitcher : MonoBehaviour
         "PointCloud",
         "AreaLearning",
         "AreaDescriptionManagement",
-        "AugmentedReality",
         "SimpleAugmentedReality",
-        "PointToPoint",
-        "ExperimentalFloorFinding",
-        "ExperimentalMeshOcclusion",
-        "ExperimentalMeshBuilderWithColor",
-        "ExperimentalMeshBuilderWithPhysics"
+        "PointToPoint"
     };
+
+    /// <summary>
+    /// Unity start method.
+    /// </summary>
+    public void Start()
+    {
+        DontDestroyOnLoad(this);
+    }
 
     /// <summary>
     /// Scene switching GUI.

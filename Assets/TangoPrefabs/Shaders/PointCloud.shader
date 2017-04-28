@@ -6,8 +6,6 @@ Properties{
 }
   SubShader {
      Pass {
-		LOD 200
-
         CGPROGRAM
         #pragma vertex vert
         #pragma fragment frag

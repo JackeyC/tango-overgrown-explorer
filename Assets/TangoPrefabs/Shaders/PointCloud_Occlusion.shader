@@ -1,9 +1,6 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "Tango/PointCloud (Occlusion)" {
-	Properties{
-		point_size("Point Size", Float) = 10.0
-	}
     SubShader {
         Tags { "Queue" = "Background-1" }
         Pass {
@@ -26,13 +23,11 @@ Shader "Tango/PointCloud (Occlusion)" {
                float size : PSIZE;
             };
            
-			float point_size;
-
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.size = 10;
+                o.size = 30;
                 return o;
             }
            

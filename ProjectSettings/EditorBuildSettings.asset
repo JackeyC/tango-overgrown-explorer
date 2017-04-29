@@ -7,11 +7,16 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/main.unity
+    guid: 44b9718c9cd44f540a1eb29fd43e317e
   - enabled: 0
     path: Assets/motion-tracking.unity
+    guid: a818c650c35f03f4ba1f6ca5a5dd57f1
   - enabled: 0
     path: Assets/area-learning.unity
+    guid: 8f5f71b4053b4304385407117fd7ff3c
   - enabled: 0
     path: Assets/depth-perception.unity
+    guid: b423a098c804ee8479a0389afab1537b
   - enabled: 0
     path: Assets/test.unity
+    guid: c06b3f7efbdfb5d4f9a898218b6e95b2

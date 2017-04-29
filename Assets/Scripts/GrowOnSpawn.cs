@@ -12,7 +12,7 @@ public class GrowOnSpawn : MonoBehaviour {
 	void Start () {
         scale = Random.Range(scale - sizeDeviation, scale + sizeDeviation);
         transform.localScale = new Vector3 (0, 0, 0);
-        //gameObject.tag = "Plants";
+        gameObject.tag = "Plants";
 	}
 	
 	void Update ()

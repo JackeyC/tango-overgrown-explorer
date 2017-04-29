@@ -15,6 +15,8 @@ public class WaypointsFollower : MonoBehaviour
     public bool displayWaypoints = true;
     public GameObject waypointPrefab;
 
+    public PlayAnimation _playAnnimation;
+
     List<Vector3> waypoints = new List<Vector3>();
 
     Vector3 distnaceToTarget;
@@ -33,6 +35,7 @@ public class WaypointsFollower : MonoBehaviour
         // Run when there's waypoint(s)
         if (waypoints.Count != 0)
         {
+            _playAnnimation.playAnimation();
             distnaceToTarget = waypoints[0] - transform.position;
 
             // Constrain Airship rotation towards target around y axis only.
@@ -101,14 +104,26 @@ public class WaypointsFollower : MonoBehaviour
     public void OnGUI()
     {
         // Add waypoint when button touched
-        if (GUI.Button(new Rect(Screen.width - 310, Screen.height - 210, 300, 200), "<size=40>Set Waypoint</size>"))
+        if (GUI.Button(new Rect(Screen.width - 410, Screen.height - 210, 400, 200), "<size=40>Set Waypoint</size>"))
         {
             addWaypoints();
         }
 
-        if (GUI.Button(new Rect(Screen.width - 410, 10, 400, 100), "<size=40>Toggle Waypoint</size>"))
+        // Toggle Display Waypoints
+        //if (GUI.Button(new Rect(Screen.width - 410, 10, 400, 100), "<size=40>Toggle Waypoint</size>"))
+        //{
+        //    displayWaypoints = !displayWaypoints;
+        //}
+
+        // Remove Waypoints
+        if (GUI.Button(new Rect(Screen.width - 410, Screen.height - 320, 400, 100), "<size=40>Remove Waypoints</size>"))
         {
-            displayWaypoints = !displayWaypoints;
+            waypoints.Clear();
+            var waypointsToDestroy = GameObject.FindGameObjectsWithTag("Waypoints");
+            foreach (var waypoint in waypointsToDestroy)
+            {
+                Destroy(waypoint);
+            }
         }
     }
 }

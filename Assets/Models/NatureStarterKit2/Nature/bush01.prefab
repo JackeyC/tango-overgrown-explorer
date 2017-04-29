@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3302098}
   - component: {fileID: 2398136}
   - component: {fileID: 114342594821194518}
+  - component: {fileID: 136659175969751942}
   m_Layer: 0
   m_Name: bush01
   m_TagString: Plants
@@ -137,7 +138,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -9909,3 +9910,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growthSpeed: 0.1
+  scale: 0.05
+  sizeDeviation: 0.01
+--- !u!136 &136659175969751942
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
